@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "prepare": "husky",
+    "build:css": "node build.js",
     "lint:js": "eslint js/",
     "lint:css": "stylelint css/",
     "lint:format": "prettier --check .",

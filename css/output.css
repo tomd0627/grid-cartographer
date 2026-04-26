@@ -110,3 +110,17 @@
   display: block;
   opacity: 0.6;
 }
+
+.output-empty .output-placeholder-line:nth-child(1) {
+  inline-size: 60%;
+}
+
+.output-empty .output-placeholder-line:nth-child(2) {
+  inline-size: 80%;
+  margin-block-start: var(--space-2);
+}
+
+.output-empty .output-placeholder-line:nth-child(3) {
+  inline-size: 50%;
+  margin-block-start: var(--space-2);
+}

@@ -145,9 +145,9 @@ function renderOutput(state) {
   // Code output
   if (!css) {
     outputCodeEl.innerHTML = `<span class="output-empty" aria-hidden="true">
-  <span class="output-placeholder-line" style="inline-size: 60%; display: inline-block;"></span>
-  <span class="output-placeholder-line" style="inline-size: 80%; display: inline-block; margin-block-start: 8px;"></span>
-  <span class="output-placeholder-line" style="inline-size: 50%; display: inline-block; margin-block-start: 8px;"></span>
+  <span class="output-placeholder-line"></span>
+  <span class="output-placeholder-line"></span>
+  <span class="output-placeholder-line"></span>
 </span>`;
     copyBtn.disabled = true;
     copyBtn.setAttribute('aria-disabled', 'true');
