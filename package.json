@@ -1,0 +1,35 @@
+{
+  "name": "grid-cartographer",
+  "version": "1.0.0",
+  "description": "A visual CSS Grid playground — draw layouts by clicking and dragging, get the CSS instantly.",
+  "type": "module",
+  "scripts": {
+    "prepare": "husky",
+    "lint:js": "eslint js/",
+    "lint:css": "stylelint css/",
+    "lint:format": "prettier --check .",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:format"
+  },
+  "lint-staged": {
+    "*.{html,css,js}": [
+      "prettier --write"
+    ],
+    "*.js": [
+      "eslint --fix"
+    ],
+    "*.css": [
+      "stylelint --fix"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0",
+    "prettier": "^3.0.0",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-order": "^6.0.0",
+    "stylelint-use-logical": "^2.1.0"
+  }
+}

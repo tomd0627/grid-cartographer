@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="6" fill="#f4f3ee"/>
+  <!-- Grid lines -->
+  <rect x="4" y="4" width="10" height="10" rx="1" fill="#e5e3db" stroke="#c8c5bb" stroke-width="1"/>
+  <rect x="16" y="4" width="10" height="10" rx="1" fill="#e5e3db" stroke="#c8c5bb" stroke-width="1"/>
+  <rect x="4" y="16" width="10" height="10" rx="1" fill="#e5e3db" stroke="#c8c5bb" stroke-width="1"/>
+  <!-- Highlighted cell (accent color) -->
+  <rect x="16" y="16" width="10" height="10" rx="1" fill="#2563eb"/>
+</svg>

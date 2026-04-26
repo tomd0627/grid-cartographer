@@ -1,0 +1,230 @@
+/* ─── Grid workspace ───────────────────────────────────────── */
+
+.grid-container {
+  overflow: auto visible;
+  padding-block-end: var(--space-2);
+}
+
+.grid-workspace {
+  display: grid;
+  gap: var(--cell-gap);
+  grid-template-columns: repeat(var(--gc-cols, 4), var(--cell-size));
+  grid-template-rows: repeat(var(--gc-rows, 4), var(--cell-size));
+  inline-size: fit-content;
+  position: relative;
+  user-select: none;
+}
+
+/* ─── Grid cells ────────────────────────────────────────────── */
+
+.grid-cell {
+  align-items: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: crosshair;
+  display: flex;
+  justify-content: center;
+  outline-offset: -2px;
+  position: relative;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.grid-cell:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+  z-index: 2;
+}
+
+/* Hover state — only when not assigned */
+.grid-cell:not([data-area]):hover {
+  background-color: var(--color-accent-subtle);
+  border-color: var(--color-accent);
+}
+
+/* Selecting — active drag highlight */
+.grid-cell[data-selecting] {
+  background-color: var(--color-accent-subtle-hover);
+  border-color: var(--color-accent);
+  z-index: 1;
+}
+
+/* Conflict — cells already claimed by a different area */
+.grid-cell[data-conflict] {
+  background-color: var(--color-danger-subtle);
+  border-color: var(--color-danger);
+}
+
+/* Assigned cell — color driven by --cell-color custom prop set by JS */
+.grid-cell[data-area] {
+  background-color: color-mix(in srgb, var(--cell-color, #3b82f6) 18%, transparent);
+  border-color: var(--cell-color, #3b82f6);
+  border-width: 2px;
+  cursor: pointer;
+}
+
+.grid-cell[data-area]:hover {
+  background-color: color-mix(in srgb, var(--cell-color, #3b82f6) 28%, transparent);
+}
+
+/* ─── Area label inside cell ───────────────────────────────── */
+
+.grid-cell__label {
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  inline-size: 100%;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  padding-inline: 2px;
+  pointer-events: none;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Show label only on first cell of each area (handled by JS data-label-cell attribute) */
+.grid-cell:not([data-label-cell]) .grid-cell__label {
+  display: none;
+}
+
+/* ─── Drag selection overlay (rubber-band rect) ─────────────── */
+
+.grid-selection-hint {
+  align-items: center;
+  border: 2px dashed var(--color-accent);
+  border-radius: var(--radius-sm);
+  color: var(--color-accent);
+  display: flex;
+  font-size: 0.75rem;
+  font-weight: 500;
+  inset: 0;
+  justify-content: center;
+  pointer-events: none;
+  position: absolute;
+  z-index: 5;
+}
+
+/* ─── Name input overlay ───────────────────────────────────── */
+
+.name-overlay {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-inline-size: 200px;
+  padding: var(--space-3);
+  position: fixed;
+  z-index: 100;
+}
+
+.name-overlay[hidden] {
+  display: none;
+}
+
+.name-overlay__input {
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  inline-size: 100%;
+  outline: none;
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.name-overlay__input:focus {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-focus);
+}
+
+.name-overlay__actions {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+.name-overlay__error {
+  color: var(--color-danger);
+  font-size: 0.75rem;
+  min-block-size: 1.25rem;
+}
+
+/* ─── Context menu ─────────────────────────────────────────── */
+
+.context-menu {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  min-inline-size: 180px;
+  overflow: hidden;
+  padding-block: var(--space-1);
+  position: fixed;
+  z-index: 200;
+}
+
+.context-menu[hidden] {
+  display: none;
+}
+
+.context-menu__item {
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  display: flex;
+  font-size: 0.875rem;
+  gap: var(--space-3);
+  inline-size: 100%;
+  padding-block: var(--space-2);
+  padding-inline: var(--space-4);
+  transition: background-color var(--transition-fast);
+}
+
+.context-menu__item:hover {
+  background-color: var(--color-accent-subtle);
+}
+
+.context-menu__item--danger {
+  color: var(--color-danger);
+}
+
+.context-menu__item--danger:hover {
+  background-color: var(--color-danger-subtle);
+}
+
+.context-menu__item svg {
+  block-size: 14px;
+  flex-shrink: 0;
+  inline-size: 14px;
+  opacity: 0.7;
+}
+
+.context-menu__separator {
+  background-color: var(--color-border);
+  block-size: 1px;
+  margin-block: var(--space-1);
+}
+
+/* ─── Empty grid state ─────────────────────────────────────── */
+
+.grid-empty-hint {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+  margin-block-start: var(--space-3);
+  text-align: center;
+}

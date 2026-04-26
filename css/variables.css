@@ -1,0 +1,90 @@
+:root {
+  /* Background & surface */
+  --color-bg: #f4f3ee;
+  --color-surface: #fff;
+  --color-surface-2: #f9f8f5;
+
+  /* Borders */
+  --color-border: #e5e3db;
+  --color-border-strong: #8b8880; /* Meets 3:1 against white for UI component boundaries */
+
+  /* Text */
+  --color-text-primary: #1c1c2e;
+  --color-text-secondary: #5a5a7a; /* 6:1 on parchment */
+  --color-text-muted: #6b6b82; /* 4.7:1 on parchment — was #8f8faa (2.85:1, failing) */
+
+  /* Accent — technical blue */
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-accent-subtle: rgb(37 99 235 / 8%);
+  --color-accent-subtle-hover: rgb(37 99 235 / 14%);
+
+  /* Action — warm orange (dark text required: white on #f97316 = 2.8:1, fails) */
+  --color-action: #f97316;
+  --color-action-hover: #ea6c0a;
+  --color-action-text: #1c1c2e;
+
+  /* Semantic (#ef4444 text on white = 3.78:1, fails AA — use #dc2626 for text) */
+  --color-success: #10b981;
+  --color-success-subtle: rgb(16 185 129 / 12%);
+  --color-danger: #dc2626; /* 4.84:1 on white — was #ef4444 (3.78:1, failing) */
+  --color-danger-subtle: rgb(239 68 68 / 10%);
+  --color-warning: #f59e0b;
+
+  /* Graph paper grid lines (used on body background) */
+  --color-graph-line: #e0ddd5;
+  --color-graph-line-major: #d0ccbf;
+
+  /* Area palette — 8 distinct colors */
+  --area-1: #3b82f6;
+  --area-2: #f97316;
+  --area-3: #10b981;
+  --area-4: #8b5cf6;
+  --area-5: #ec4899;
+  --area-6: #ca8a04;
+  --area-7: #ef4444;
+  --area-8: #14b8a6;
+
+  /* Typography */
+  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+
+  /* Spacing scale (4px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Border radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Transitions */
+  --transition-fast: 120ms ease;
+  --transition-base: 220ms ease;
+
+  /* Focus ring */
+  --focus-ring: 2px solid var(--color-accent);
+  --focus-ring-offset: 3px;
+
+  /* Grid cell sizing */
+  --cell-size: 60px;
+  --cell-gap: 3px;
+
+  /* Panel sizing */
+  --panel-min-width: 320px;
+  --header-height: 64px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 8%), 0 1px 2px rgb(0 0 0 / 5%);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 8%), 0 2px 4px rgb(0 0 0 / 5%);
+  --shadow-focus: 0 0 0 3px rgb(37 99 235 / 20%);
+}

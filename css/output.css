@@ -1,0 +1,112 @@
+/* ─── Output panel ───────────────────────────────────────────── */
+
+.output-panel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-block-size: 0;
+}
+
+.output-panel__header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.output-panel__pre {
+  background-color: #f8f7f4;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  min-block-size: 200px;
+  overflow: auto;
+  padding: var(--space-4);
+  tab-size: 2;
+}
+
+.output-panel__code {
+  display: block;
+  white-space: pre;
+}
+
+/* ─── Syntax tokens ─────────────────────────────────────────── */
+
+.tok-selector {
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+.tok-property {
+  color: #0369a1;
+}
+
+.tok-value {
+  color: #7c3aed;
+}
+
+.tok-string {
+  color: #047857;
+}
+
+.tok-punct {
+  color: var(--color-text-muted);
+}
+
+.tok-comment {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* ─── Warning / error state in output ──────────────────────── */
+
+.output-warnings {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.output-warning {
+  align-items: flex-start;
+  background-color: rgb(245 158 11 / 10%);
+  border: 1px solid rgb(245 158 11 / 35%);
+  border-radius: var(--radius-sm);
+  color: #92400e;
+  display: flex;
+  font-size: 0.8125rem;
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+}
+
+.output-warning svg {
+  block-size: 14px;
+  flex-shrink: 0;
+  inline-size: 14px;
+  margin-block-start: 2px;
+}
+
+/* ─── Empty output state ─────────────────────────────────────── */
+
+.output-empty {
+  align-items: center;
+  color: var(--color-text-muted);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  gap: var(--space-2);
+  padding-block: var(--space-8);
+  text-align: center;
+}
+
+.output-empty .output-placeholder-line {
+  background-color: var(--color-border);
+  block-size: 12px;
+  border-radius: 4px;
+  display: block;
+  opacity: 0.6;
+}

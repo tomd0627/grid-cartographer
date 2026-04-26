@@ -1,0 +1,216 @@
+/* ─── Dimension controls ────────────────────────────────────── */
+
+.controls {
+  align-items: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.control-group__label {
+  color: var(--color-text-secondary);
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.number-input {
+  align-items: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  gap: 0;
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.number-input:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-focus);
+  outline: none;
+}
+
+.number-input__btn {
+  align-items: center;
+  block-size: 36px;
+  color: var(--color-text-secondary);
+  display: flex;
+  flex-shrink: 0;
+  inline-size: 32px;
+  justify-content: center;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.number-input__btn:hover {
+  background-color: var(--color-accent-subtle);
+  color: var(--color-accent);
+}
+
+.number-input__btn:active {
+  background-color: var(--color-accent-subtle-hover);
+}
+
+.number-input__btn svg {
+  block-size: 14px;
+  inline-size: 14px;
+  pointer-events: none;
+}
+
+.number-input__field {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  background: none;
+  block-size: 36px;
+  border: none;
+  border-inline: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  inline-size: 48px;
+  outline: none;
+  padding: 0;
+  text-align: center;
+}
+
+.number-input__field::-webkit-inner-spin-button,
+.number-input__field::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* ─── Button variants ───────────────────────────────────────── */
+
+.btn {
+  align-items: center;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  font-size: 0.875rem;
+  font-weight: 500;
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-4);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn svg {
+  block-size: 15px;
+  flex-shrink: 0;
+  inline-size: 15px;
+}
+
+.btn--ghost {
+  background-color: transparent;
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text-secondary);
+}
+
+.btn--ghost:hover {
+  background-color: var(--color-accent-subtle);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.btn--ghost:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.btn--danger {
+  background-color: transparent;
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text-secondary);
+}
+
+.btn--danger:hover {
+  background-color: var(--color-danger-subtle);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.btn--action {
+  background-color: var(--color-action);
+  border: 1px solid var(--color-action);
+  color: var(--color-action-text);
+}
+
+.btn--action:hover {
+  background-color: var(--color-action-hover);
+  border-color: var(--color-action-hover);
+}
+
+.btn--action[data-state='success'] {
+  background-color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.btn--icon {
+  align-items: center;
+  background: none;
+  block-size: 32px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  display: inline-flex;
+  inline-size: 32px;
+  justify-content: center;
+  padding: 0;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.btn--icon svg {
+  block-size: 15px;
+  inline-size: 15px;
+}
+
+.btn--icon:hover {
+  background-color: var(--color-accent-subtle);
+  border-color: var(--color-accent-subtle-hover);
+  color: var(--color-accent);
+}
+
+.btn--icon:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.btn--icon--danger:hover {
+  background-color: var(--color-danger-subtle);
+  border-color: transparent;
+  color: var(--color-danger);
+}
+
+/* ─── Controls toolbar ─────────────────────────────────────── */
+
+.controls-toolbar {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: space-between;
+}
+
+.controls-toolbar__left {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
