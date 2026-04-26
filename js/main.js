@@ -24,6 +24,7 @@ const outputCodeEl = document.getElementById('output-code');
 const outputWarningsEl = document.getElementById('output-warnings');
 const copyBtn = document.getElementById('btn-copy');
 const resetBtn = document.getElementById('btn-reset');
+const gridHintEl = document.getElementById('grid-hint');
 const colsInput = document.getElementById('input-columns');
 const rowsInput = document.getElementById('input-rows');
 const colsDecBtn = document.getElementById('btn-cols-dec');
@@ -44,6 +45,7 @@ const contextMenuDelete = document.getElementById('context-menu-delete');
 const contextMenuLabel = document.getElementById('context-menu-label');
 
 let pendingSelectionCells = null;
+let pendingEdit = null; // { name, color, cells } while an area is being redrawn
 let contextTargetArea = null;
 
 // ─── Init ────────────────────────────────────────────────────────
@@ -52,7 +54,7 @@ function init() {
   renderGrid(gridEl, getState());
   renderAreasList(areasListEl, areasEmptyEl, getState());
 
-  initDrag(gridEl, onSelectionComplete);
+  initDrag(gridEl, onSelectionComplete, onEditCancel);
 
   // Subscribe to state changes
   subscribe(onStateChange);
@@ -82,7 +84,7 @@ function init() {
   nameConfirmBtn.addEventListener('click', confirmAreaName);
   nameCancelBtn.addEventListener('click', dismissNameOverlay);
 
-  // Area list delegated events (rename + delete)
+  // Area list delegated events (rename, edit, delete)
   areasListEl.addEventListener('change', onAreaNameChange);
   areasListEl.addEventListener('click', onAreaListClick);
 
@@ -175,12 +177,38 @@ function stepInput(input, delta) {
   input.dispatchEvent(new Event('change'));
 }
 
+// ─── Edit mode ──────────────────────────────────────────────────
+
+function onAreaEditClick(areaName) {
+  // If already in an edit, restore the previous area first
+  if (pendingEdit) restoreEditArea();
+
+  const area = getState().areas.get(areaName);
+  if (!area) return;
+
+  pendingEdit = { name: areaName, color: area.color, cells: new Set(area.cells) };
+  deleteArea(areaName);
+  gridHintEl.textContent = `Redraw "${areaName}" — or press Escape to cancel`;
+  gridEl.querySelector('.grid-cell')?.focus();
+}
+
+function restoreEditArea() {
+  if (!pendingEdit) return;
+  createArea(pendingEdit.name, pendingEdit.cells, pendingEdit.color);
+  pendingEdit = null;
+  gridHintEl.textContent = 'Click and drag to define a named grid area';
+}
+
+function onEditCancel() {
+  restoreEditArea();
+}
+
 // ─── Selection complete → show name overlay ──────────────────────
 
 function onSelectionComplete(cells, position) {
   pendingSelectionCells = cells;
 
-  nameInput.value = '';
+  nameInput.value = pendingEdit?.name ?? '';
   nameError.textContent = '';
   nameInput.removeAttribute('aria-invalid');
 
@@ -199,6 +227,7 @@ function onSelectionComplete(cells, position) {
   nameOverlay.style.top = `${top}px`;
   nameOverlay.hidden = false;
   nameInput.focus();
+  nameInput.select();
 }
 
 function confirmAreaName() {
@@ -216,13 +245,18 @@ function confirmAreaName() {
     return;
   }
 
-  createArea(sanitized, pendingSelectionCells);
+  const preservedColor = pendingEdit?.color;
+  pendingEdit = null; // clear before dismiss so restore is not triggered
+  createArea(sanitized, pendingSelectionCells, preservedColor);
+  gridHintEl.textContent = 'Click and drag to define a named grid area';
   dismissNameOverlay();
 }
 
 function dismissNameOverlay() {
   nameOverlay.hidden = true;
   pendingSelectionCells = null;
+  // If edit was cancelled (pendingEdit still set), restore the original area
+  if (pendingEdit) restoreEditArea();
   nameError.textContent = '';
   nameInput.value = '';
   nameInput.removeAttribute('aria-invalid');
@@ -283,13 +317,17 @@ function onAreaNameChange(e) {
 }
 
 function onAreaListClick(e) {
-  const deleteBtn = e.target.closest('.btn--icon--danger');
-  if (!deleteBtn) return;
-
-  const li = deleteBtn.closest('.area-item');
+  const li = e.target.closest('.area-item');
   if (!li) return;
 
-  deleteArea(li.dataset.areaName);
+  if (e.target.closest('.btn--icon--danger')) {
+    deleteArea(li.dataset.areaName);
+    return;
+  }
+
+  if (e.target.closest('.btn--icon--edit')) {
+    onAreaEditClick(li.dataset.areaName);
+  }
 }
 
 // ─── Context menu ───────────────────────────────────────────────
@@ -350,6 +388,10 @@ function onDocumentKeyDown(e) {
     if (!contextMenu.hidden) {
       contextMenu.hidden = true;
       contextTargetArea = null;
+    }
+    // Cancel edit mode when no drag or overlay is consuming Escape
+    if (pendingEdit && nameOverlay.hidden) {
+      restoreEditArea();
     }
   }
 }

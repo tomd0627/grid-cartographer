@@ -81,9 +81,11 @@ export function setDimensions(columns, rows) {
   notify();
 }
 
-export function createArea(name, cells) {
-  const color = AREA_COLORS[state.colorIndex % AREA_COLORS.length];
-  state.colorIndex += 1;
+export function createArea(name, cells, preservedColor) {
+  const color =
+    preservedColor !== undefined
+      ? preservedColor
+      : AREA_COLORS[state.colorIndex++ % AREA_COLORS.length];
   state.areas.set(name, { name, color, cells: new Set(cells) });
   for (const key of cells) {
     state.cellAssignments.set(key, name);
@@ -170,6 +172,8 @@ export function cancelDrag() {
 }
 
 export function reset() {
+  state.columns = 4;
+  state.rows = 4;
   state.areas = new Map();
   state.cellAssignments = new Map();
   state.colorIndex = 0;

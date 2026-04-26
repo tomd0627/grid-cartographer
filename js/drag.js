@@ -1,10 +1,12 @@
 import { beginDrag, cancelDrag, endDrag, getState, updateDrag } from './state.js';
 
 let onDragEnd = null;
+let onDragCancel = null;
 let isMouseDown = false;
 
-export function initDrag(gridEl, onSelectionComplete) {
+export function initDrag(gridEl, onSelectionComplete, onCancel) {
   onDragEnd = onSelectionComplete;
+  onDragCancel = onCancel;
 
   // Mouse events — mousemove/mouseup are document-level so dragging outside the
   // grid doesn't break state.
@@ -124,6 +126,7 @@ function handleKeyDown(e) {
       if (state.dragActive) {
         e.preventDefault();
         cancelDrag();
+        onDragCancel?.();
       }
       break;
 

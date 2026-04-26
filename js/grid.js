@@ -115,6 +115,7 @@ function createCell(row, col, state, colorMap) {
 function updateLabelCell(cell, labelEl, row, col, areaName, state) {
   if (!areaName) {
     cell.removeAttribute('data-label-cell');
+    cell.style.removeProperty('--label-col-span');
     labelEl.textContent = '';
     return;
   }
@@ -122,22 +123,26 @@ function updateLabelCell(cell, labelEl, row, col, areaName, state) {
   const area = state.areas.get(areaName);
   if (!area) return;
 
-  // Find the top-left cell of the area
+  // Find the bounding box of the area
   let minRow = Infinity;
   let minCol = Infinity;
+  let maxCol = -Infinity;
   for (const key of area.cells) {
     const [r, c] = key.split(',').map(Number);
     if (r < minRow || (r === minRow && c < minCol)) {
       minRow = r;
       minCol = c;
     }
+    if (c > maxCol) maxCol = c;
   }
 
   if (row === minRow && col === minCol) {
     cell.setAttribute('data-label-cell', '');
+    cell.style.setProperty('--label-col-span', maxCol - minCol + 1);
     labelEl.textContent = areaName;
   } else {
     cell.removeAttribute('data-label-cell');
+    cell.style.removeProperty('--label-col-span');
     labelEl.textContent = '';
   }
 }

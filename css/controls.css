@@ -159,6 +159,11 @@
   border-color: var(--color-success);
 }
 
+.btn--action:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
 .btn--icon {
   align-items: center;
   background: none;

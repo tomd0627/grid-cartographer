@@ -76,17 +76,28 @@
   font-family: var(--font-mono);
   font-size: 0.625rem;
   font-weight: 600;
-  inline-size: 100%;
   letter-spacing: 0.02em;
-  overflow: hidden;
-  padding-inline: 2px;
   pointer-events: none;
-  text-align: center;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-/* Show label only on first cell of each area (handled by JS data-label-cell attribute) */
+/* Span the label across all columns in the area's bounding box */
+[data-label-cell] .grid-cell__label {
+  align-items: center;
+  display: flex;
+  inline-size: calc(
+    var(--label-col-span, 1) * (var(--cell-size) + var(--cell-gap)) - var(--cell-gap)
+  );
+  inset-block: 0;
+  inset-inline-start: 0;
+  justify-content: center;
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  z-index: 2;
+}
+
+/* Hide label on all other cells (handled by JS data-label-cell attribute) */
 .grid-cell:not([data-label-cell]) .grid-cell__label {
   display: none;
 }

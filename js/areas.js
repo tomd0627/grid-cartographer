@@ -84,6 +84,14 @@ function buildAreaItem(name, area, cellCount) {
   countEl.textContent = `${cellCount} cell${cellCount !== 1 ? 's' : ''}`;
   countEl.setAttribute('aria-hidden', 'true');
 
+  const editBtn = document.createElement('button');
+  editBtn.className = 'btn--icon btn--icon--edit';
+  editBtn.setAttribute('aria-label', `Edit area: ${name}`);
+  editBtn.innerHTML = `<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15">
+    <path d="M12 20h9"/>
+    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+  </svg>`;
+
   const deleteBtn = document.createElement('button');
   deleteBtn.className = 'btn--icon btn--icon--danger';
   deleteBtn.setAttribute('aria-label', `Delete area: ${name}`);
@@ -94,6 +102,7 @@ function buildAreaItem(name, area, cellCount) {
   li.appendChild(swatch);
   li.appendChild(nameInput);
   li.appendChild(countEl);
+  li.appendChild(editBtn);
   li.appendChild(deleteBtn);
 
   return li;
